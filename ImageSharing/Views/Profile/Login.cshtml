@@ -1,0 +1,44 @@
+﻿@model ImageSharing.Data.Entity.User
+@{
+    ViewBag.Title = "Log in";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title</h1>
+</hgroup>
+
+@using (Html.BeginForm("Login", "Profile", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Registration Form</legend>
+        <div class="row ">
+            <div class="col-md-offset-2 col-md-3">
+                <label for="Email" class="log-reg-label">Email</label>
+            </div>
+            <div class="col-md-5">
+                @Html.TextBoxFor(model => model.Email, htmlAttributes: new { type = "email", @class = "log-reg-input" })
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-offset-2 col-md-3">
+                <label for="Password" class="log-reg-label">Password</label>
+            </div>
+            <div class="col-md-5">
+                @Html.PasswordFor(model => model.Password, htmlAttributes: new { @class = "log-reg-input" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-offset-5 col-md-3">
+                <input type="submit" value="Log in" />
+            </div>
+        </div>
+    </fieldset>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,151 @@
+﻿@model ImageSharing.Models.ImageSharingViewModel
+
+@{
+    ViewBag.Title = "Profile Page";
+}
+
+<div class="row profile">
+    @if (Session["userID"] != null)
+    {
+        if (((int)Session["userID"]) == Model.ProfileUser.ID)
+        {
+        <div class="col-md-3">
+            <img src="../../Images/icon.png" class="img-responsive img-circle">
+        </div>      
+        <div class="col-md-7 ">
+            <span>@Session["userFirstName"] @Session["userSecondName"]  (you)</span>
+            <div class="dropdown ">
+                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                    Settings
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Change password</a></li>
+                    <li><a href="#">Change profile name</a></li>
+                    <li><a href="#">...</a></li>
+                </ul>
+            </div>
+        </div>
+        }
+        else
+        {
+        <div class="col-md-3">
+            <img src="../../Images/icon.png" class="img-responsive img-circle">
+        </div>
+        <div class="col-md-7 ">
+            <span>@Model.ProfileUser.FirstName @Model.ProfileUser.SecondName </span>
+            <br />
+
+            @if (Model.IsFriend)
+            {
+                @Html.ActionLink("Unfollow", "Delete", "Friend", new { friendid = Model.ProfileUser.ID }, htmlAttributes: new { @class = "btn btn-primary " }) 
+            }
+            else
+            {
+                @Html.ActionLink("Follow", "Create", "Friend", new { friendid = Model.ProfileUser.ID }, htmlAttributes: new { @class = "btn btn-success " }) 
+            }
+
+        </div>     
+        }
+    }
+    else
+    {
+        <div class="col-md-3">
+            <img src="../../Images/icon.png" class="img-responsive img-circle">
+        </div>
+        <div class="col-md-7 ">
+            <span>@Model.ProfileUser.FirstName @Model.ProfileUser.SecondName </span>
+            <br />
+
+        </div>   
+    }
+</div>
+<div class="row profile-posts">
+
+    @foreach (var item in Model.Posts)
+    {
+        <div class="col-md-4 " data-toggle="modal" data-target="#myModal-@item.Post.ID">
+            <img src="../MediaUploader/@item.Post.Image" class="img-responsive img-rounded"></div>
+
+
+        <!-- Modal -->
+        <div id="myModal-@item.Post.ID" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-lg">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">
+                            @Html.ActionLink(item.Post.User.FirstName + " " + item.Post.User.SecondName, "Profile", "Profile", new { profileId = item.Post.User.ID }, null)
+                            @if ((Session["userID"]) != null)
+                            {
+                                if (((int)Session["userID"]) == Model.ProfileUser.ID)
+                                {
+                                <small>
+                                    @Html.ActionLink("delete this photo", "Delete", "Post", new { postId = item.Post.ID }, new { @class = "comment-delete-href" })
+                                </small>
+                                }
+                            }
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <center><img src="../MediaUploader/@item.Post.Image" class="img-responsive" ></center>
+                        <br />
+                        <div class="comment">
+                            <div class="media">
+                                <div class="media-body">
+                                    <p>@item.Post.Description</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>Comments:</h3>
+
+                        @foreach (var commentItem in item.Comments)
+                        {
+    
+                            <div class="comment">
+                                <div class="media">
+                                    <div class="media-body">
+                                        <h4 class="media-heading">@commentItem.User.FirstName @commentItem.User.SecondName</h4>
+                                        <p>@commentItem.Commentary</p>
+                                        @if ((Session["userID"]) != null)
+                                        {
+                                            if ((commentItem.User.ID == ((int)Session["userID"])) || (((int)Session["userID"]) == Model.ProfileUser.ID))
+                                            {
+                                            @Html.ActionLink("delete", "Delete", "Comment", new { commentId = commentItem.ID }, new { @class = "comment-delete-href" }) 
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                        }
+
+                    </div>
+                    @if (Session["userID"] != null)
+                    {
+                        using (Html.BeginForm("Create", "Comment", FormMethod.Post))
+                        {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+                        <div class="form-group new-comment">
+
+                            <label for="comment">Comment:</label>
+                            <textarea class="form-control" rows="3" id="comment" name="Commentary"></textarea>
+                            <input type="hidden" name="User" value="@Session["userID"]" />
+                            <input type="hidden" name="Post" id="Post" value="@item.Post.ID" />
+
+                            <input type="submit" name="submit" value="Send" class="send-comment-btn" />
+
+                        </div>   
+                        }
+                    }
+
+                </div>
+            </div>
+        </div>
+    
+    }
+
+</div>

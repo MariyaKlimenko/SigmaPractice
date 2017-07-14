@@ -1,0 +1,26 @@
+﻿@model IEnumerable<ImageSharing.Data.Entity.User>
+
+<h2>Friends</h2>
+
+<div class="">
+    <table class="table  table-friends">
+        <tbody>
+            @foreach (var item in Model)
+            {        
+                <tr>
+                    <td class="friends-image-td">
+                        <img src="../../Images/icon.png" width="50px" class="img-responsive img-circle"></td>
+                    <td>
+                        @Html.ActionLink(item.FirstName + " " + item.SecondName, "Profile", "Profile", new { profileId = item.ID }, new { @class = "table-friends-link" })
+                    </td>
+                    <td colspan="20"></td>
+                    <td>
+                        @Html.ActionLink("Unfollow", "Delete", "Friend", new { friendid = item.ID }, htmlAttributes: new { @class = "btn btn-primary " })
+                    </td>
+                </tr>  
+            }
+
+        </tbody>
+    </table>
+
+</div>

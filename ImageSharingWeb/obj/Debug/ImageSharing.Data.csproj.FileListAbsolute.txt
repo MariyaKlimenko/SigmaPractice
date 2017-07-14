@@ -1,0 +1,12 @@
+D:\UNIVER\PRACTICE Sigma\ImageSharingProject\ImageSharing\ImageSharingWeb\bin\Debug\ImageSharingWeb.dll.config
+D:\UNIVER\PRACTICE Sigma\ImageSharingProject\ImageSharing\ImageSharingWeb\bin\Debug\ImageSharingWeb.dll
+D:\UNIVER\PRACTICE Sigma\ImageSharingProject\ImageSharing\ImageSharingWeb\bin\Debug\ImageSharingWeb.pdb
+D:\UNIVER\PRACTICE Sigma\ImageSharingProject\ImageSharing\ImageSharingWeb\bin\Debug\EntityFramework.dll
+D:\UNIVER\PRACTICE Sigma\ImageSharingProject\ImageSharing\ImageSharingWeb\bin\Debug\EntityFramework.SqlServer.dll
+D:\UNIVER\PRACTICE Sigma\ImageSharingProject\ImageSharing\ImageSharingWeb\bin\Debug\EntityFramework.xml
+D:\UNIVER\PRACTICE Sigma\ImageSharingProject\ImageSharing\ImageSharingWeb\bin\Debug\EntityFramework.SqlServer.xml
+D:\UNIVER\PRACTICE Sigma\ImageSharingProject\ImageSharing\ImageSharingWeb\obj\Debug\ImageSharing.Data.csprojResolveAssemblyReference.cache
+D:\UNIVER\PRACTICE Sigma\ImageSharingProject\ImageSharing\ImageSharingWeb\obj\Debug\ImageSharingWeb.dll
+D:\UNIVER\PRACTICE Sigma\ImageSharingProject\ImageSharing\ImageSharingWeb\obj\Debug\ImageSharingWeb.pdb
+D:\UNIVER\PRACTICE Sigma\ImageSharingProject\ImageSharing\ImageSharingWeb\obj\Debug\ImageSharing.Migrations.Initial.resources
+D:\UNIVER\PRACTICE Sigma\ImageSharingProject\ImageSharing\ImageSharingWeb\obj\Debug\ImageSharing.Data.csproj.GenerateResource.Cache

@@ -1,0 +1,9 @@
+D:\UNIVER\PRACTICE Sigma\ImageSharingProject\ImageSharing\ImageSharing.Business\bin\Debug\ImageSharing.Business.dll
+D:\UNIVER\PRACTICE Sigma\ImageSharingProject\ImageSharing\ImageSharing.Business\bin\Debug\ImageSharing.Business.pdb
+D:\UNIVER\PRACTICE Sigma\ImageSharingProject\ImageSharing\ImageSharing.Business\bin\Debug\ImageSharingWeb.dll
+D:\UNIVER\PRACTICE Sigma\ImageSharingProject\ImageSharing\ImageSharing.Business\bin\Debug\EntityFramework.dll
+D:\UNIVER\PRACTICE Sigma\ImageSharingProject\ImageSharing\ImageSharing.Business\bin\Debug\ImageSharingWeb.pdb
+D:\UNIVER\PRACTICE Sigma\ImageSharingProject\ImageSharing\ImageSharing.Business\bin\Debug\EntityFramework.xml
+D:\UNIVER\PRACTICE Sigma\ImageSharingProject\ImageSharing\ImageSharing.Business\obj\Debug\ImageSharing.Business.csprojResolveAssemblyReference.cache
+D:\UNIVER\PRACTICE Sigma\ImageSharingProject\ImageSharing\ImageSharing.Business\obj\Debug\ImageSharing.Business.dll
+D:\UNIVER\PRACTICE Sigma\ImageSharingProject\ImageSharing\ImageSharing.Business\obj\Debug\ImageSharing.Business.pdb

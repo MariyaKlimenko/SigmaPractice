@@ -1,0 +1,13 @@
+﻿@if (Session["userID"] != null)
+{
+
+    @Html.ActionLink("Sign out", "Logout", "Profile", routeValues: null, htmlAttributes: new { @class = "register" })
+
+}
+else
+{
+    @Html.ActionLink("register  ", "Registration", "Profile", routeValues: null, htmlAttributes: new { @class = "register" }) 
+    <span class="logout"><big>|</big></span>
+    @Html.ActionLink("  log in", "Login", "Profile", routeValues: null, htmlAttributes: new { @class = "login" })
+    
+}

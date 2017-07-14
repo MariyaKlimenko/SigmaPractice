@@ -1,0 +1,164 @@
+﻿@model ImageSharing.Models.ImageSharingViewModel
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row">
+    <aside class="col-md-2">
+        @if (Session["userID"] != null)
+        {
+            <img src="Images/icon.png" class="img-responsive img-circle">
+            <center>@Html.ActionLink(Session["userFirstName"] + " " + Session["userSecondName"] + " (you)", "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username login", title = "Manage" })</center>
+        }
+    </aside>
+    <div class=" col-md-8">
+
+        @if (Session["userID"] != null)
+        {
+
+            <div id="dZUpload" class="dropzone">
+                <div class="dz-default dz-message">Drop file here to upload</div>
+            </div>
+            <script>
+                $(document).ready(function () {
+                    Dropzone.autoDiscover = false;
+                    //Simple Dropzonejs 
+                    $("#dZUpload").dropzone({
+                        url: "hn_FileUpload.ashx",
+                        addRemoveLinks: true,
+                        success: function (file, response) {
+                            var imgName = response;
+                            file.previewElement.classList.add("dz-success");
+                            console.log("Successfully uploaded :" + imgName);
+                            document.getElementById('Image').value = imgName;
+
+                        },
+                        error: function (file, response) {
+                            file.previewElement.classList.add("dz-error");
+                        }
+                    });
+                });
+            </script>
+
+
+            using (Html.BeginForm("Create", "Post", FormMethod.Post))
+            {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+         
+
+            <fieldset>
+                <legend></legend>
+                <div class="row">
+                    <div class="col-md-10 textarea-post">
+                        <input type="hidden" name="User" id="User" value="@Session["userID"]" />
+                        @Html.HiddenFor(model => model.Post.Image, new { id = "Image" })
+                        @Html.TextAreaFor(model => model.Post.Description, new { @placeholder = "Add description...", @class = "form-control" })
+                    </div>
+
+                    <div class="col-md-2 btn-post">
+                        <input type="submit" name="submit" class="btn btn-default btn-lg  btn-block button-form button-send" value="Post" />
+                    </div>
+                </div>
+            </fieldset>         
+            }
+
+        }
+        @if (Model.Posts.Count() > 0)
+        {
+            foreach (var item in Model.Posts)
+            {
+            <div>
+                <div class="post-section">
+                    <div  data-toggle="modal" data-target="#myModal-@item.Post.ID">
+                        <center><img src="MediaUploader/@item.Post.Image" class="img-responsive img-thumbnail"></center>
+                    </div>
+                    <span class="undersign">@item.Post.CreatedAt by</span>
+                    @Html.ActionLink(item.Post.User.FirstName, "Profile", "Profile", new { profileId = item.Post.User.ID }, new { @class = "undersign" })
+
+                </div>
+
+                <!-- Modal -->
+                <div id="myModal-@item.Post.ID" class="modal fade" role="dialog">
+                    <div class="modal-dialog modal-lg">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">
+                                    @Html.ActionLink(item.Post.User.FirstName + " " + item.Post.User.SecondName, "Profile", "Profile", new { profileId = item.Post.User.ID }, null)
+                                    @if ((Session["userID"]) != null)
+                                    {
+                                        if (((int)Session["userID"]) == item.Post.User.ID)
+                                        {
+                                        <small>
+                                            @Html.ActionLink("delete this photo", "Delete", "Post", new { postId = item.Post.ID }, new { @class = "comment-delete-href" })
+                                        </small> 
+                                        }
+                                    }
+                                </h4>
+                            </div>
+                            <div class="modal-body">
+                                <center><img src="MediaUploader/@item.Post.Image" class="img-responsive" ></center>
+                                <br />
+                                <div class="comment">
+                                    <div class="media">
+                                        <div class="media-body">
+                                            <p>@item.Post.Description</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <h3>Comments:</h3>
+                                @foreach (var commentItem in item.Comments)
+                                {
+    
+                                    <div class="comment">
+                                        <div class="media">
+                                            <div class="media-body">
+                                                <h4 class="media-heading">@commentItem.User.FirstName @commentItem.User.SecondName</h4>
+                                                <p>@commentItem.Commentary</p>
+                                                @if (Session["userID"] != null)
+                                                {
+                                                    if (commentItem.User.ID == ((int)Session["userID"]))
+                                                    {
+                                                    @Html.ActionLink("delete", "Delete", "Comment", new { commentId = commentItem.ID }, new { @class = "comment-delete-href" }) 
+                                                    }
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                }
+                            </div>
+                            @if (Session["userID"] != null)
+                            {
+                                using (Html.BeginForm("Create", "Comment", FormMethod.Post))
+                                {
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true)
+                                <div class="form-group new-comment">
+
+
+                                    <label for="comment">Comment:</label>
+                                    <textarea class="form-control" rows="3" id="comment" name="Commentary"></textarea>
+                                    <input type="hidden" name="User" value="@Session["userID"]" />
+                                    <input type="hidden" name="Post" id="Post" value="@item.Post.ID" />
+
+                                    <input type="submit" name="submit" value="Send" class="send-comment-btn" />
+
+                                </div>   
+                                }
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            }
+        }
+    </div>
+
+</div>
